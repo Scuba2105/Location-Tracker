@@ -47,7 +47,6 @@ async function populateContinentData() {
 
     // Select the initial continent and generate the cities dropdown.
     const initialContinent = continentsArray[0];
-    console.log(initialContinent);
     const filteredCities = filterCitiesObject('ContinentName', initialContinent);
     const citiesArray = generateArray(filteredCities, 'CapitalName');
     
@@ -63,6 +62,7 @@ const continentsDropdown = document.querySelector('.continent-dropdown');
 const citiesDropdown = document.querySelector('.city-dropdown');
 const cancel = document.querySelector('.cancel');
 const submit = document.querySelector('.submit');
+const subject = document.querySelector('.subject')
 
 // Add event listeners to each travel button.
 travelButtons.forEach(travelButton => {
@@ -78,6 +78,10 @@ cancel.addEventListener('click', hideTravelForm);
 
 // Define the event listener functions
 function showTravelForm() {
+    // Get ID of parent element of clicked button
+    const classID = this.parentNode.parentNode.classList[1];
+    const id = classID[0].toUpperCase() + classID.substring(1, 6) + ' ' + classID.substring(6);
+    subject.textContent = id;
     travelForm.style.visibility = 'visible';
 };
 
