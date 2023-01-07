@@ -9,20 +9,23 @@ body {
     grid-template-areas: 
         "header header"
         "info map";
-    border: 1px solid black;
 }
 
 .header-bar {
     grid-area: header;
+    font-size: 20px;
     color: white;
-    background-color: rgb(25, 25, 27);  
-    text-align: center;     
+    background-color: rgb(25, 25, 27);
+    display: flex;
+    justify-content: center;  
+    align-items: center;     
 }
 
 .info-display {
     grid-area: info;
     background-color: rgb(228, 230, 229); 
-    border-right: 2px solid black;
+    border: 1px solid black;
+    border-top:none;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -94,4 +97,56 @@ body {
     grid-area: map;
     background-image: url("../images/world-map..svg");
     background-size: cover; 
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
 }
+
+.travel-form {
+    height: 400px;
+    width: 350px;
+    border: 1px solid black;
+    position: absolute;
+    top: 250px;
+    left: 625px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+}
+
+.form-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.continent-dropdown, .city-dropdown {
+    height: 25px;
+    width: 150px;
+    font-size: 15px;
+    transform: translateY(-20px);
+}
+
+.submit, .cancel {
+    height: 40px;
+    width: 120px;
+    font-size: 15px;
+    margin-bottom: 10px;
+    display: inline;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+.submit {
+    color: white;
+    background-color:#17837d;
+    border: 1px solid black;
+}
+
+.cancel {
+    color: white;
+    background-color: #d33434;
+    border: 1px solid black;
+}
+

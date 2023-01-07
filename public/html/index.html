@@ -23,7 +23,7 @@
                     <p class="current-location">Current Location:</p>
                     <p class="previous-location">Previous Location:</p>
                     <p class="distance">Total Distance Travelled:</p>
-                    <button class="travel-button1">Travel</button>
+                    <button class="travel-button travel-button1">Travel</button>
                 </div>
             </div>
             <div class="player player2">
@@ -35,7 +35,7 @@
                     <p class="current-location">Current Location:</p>
                     <p class="previous-location">Previous Location:</p>
                     <p class="distance">Total Distance Travelled:</p>
-                    <button class="travel-button2">Travel</button>
+                    <button class="travel-button travel-button2">Travel</button>
                 </div>
             </div>
             <div class="player player3">
@@ -47,11 +47,24 @@
                     <p class="current-location">Current Location:</p>
                     <p class="previous-location">Previous Location:</p>
                     <p class="distance">Total Distance Travelled:</p>
-                    <button class="travel-button3">Travel</button>
+                    <button class="travel-button travel-button3">Travel</button>
                 </div>
             </div>
         </div>
         <div class="world-map"></div>
     </div>
+    <form class="travel-form">
+        <label class="form-title">Where Would You Like To Travel?</label>
+        <label for="continents" class="continent-label">Select Continent:</label>   
+        <select name="continents" class="continent-dropdown">
+        </select>
+        <label for="cities" class="city-label">Select City:</label>
+        <select name="cities" class="city-dropdown">
+        </select>
+        <div>
+            <button class="submit">Submit</button>
+            <button class="cancel">Cancel</button>
+        </div>
+    </form>
 </body>
 </html>
