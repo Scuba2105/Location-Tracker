@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
         .layout {
             display: grid;
             grid-template-columns: 1fr 1100px;
-            grid-template-rows: 1fr 600px;
+            grid-template-rows: 1fr 700px;
             grid-template-areas: 
                 "header header"
                 "info map";
+            border: 1px solid black;
         }
         
         .header-bar {
@@ -26,12 +31,79 @@
             grid-area: info;
             background-color: rgb(228, 230, 229); 
             border-right: 2px solid black;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .player {
+            height: 175px;
+            width: 350px;
+            border: 1px solid black;
+            background-color: white;
+            display: grid;
+            grid-template-columns: 125px 1fr;
+        }
+
+        .player-icon {
+            border-right: 1px solid black;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .person {
+            height: 125px;
+            width: 100px;
+        }
+
+        .location-data {
+           font-size: 12px;
+           display: flex;
+           flex-direction: column;
+           justify-content: space-around;
+           padding-left: 5px; 
+        }
+
+        .travel-button1 {
+            width: 100px;
+            margin: 0 auto;
+            color:white;
+            font-weight: bold;
+            background-color: #d33434;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+        .travel-button2 {
+            width: 100px;
+            margin: 0 auto;
+            color:white;
+            font-weight: bold;
+            background-color: #242699;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+        .travel-button3 {
+            width: 100px;
+            margin: 0 auto;
+            color:white;
+            font-weight: bold;
+            background-color: #17837d;
+            border: 1px solid black;
+            border-radius: 5px;
         }
         
         .world-map {
             grid-area: map;
-            background-image: url("../images/world-map..svg"); 
+            background-image: url("../images/world-map..svg");
+            background-size: cover; 
         }
+        
     </style>
 </head>
 <body>
@@ -39,7 +111,44 @@
         <div class="header-bar">
             <h1 class="title">Location Tracker</h1>
         </div>
-        <div class="info-display"></div>
+        <div class="info-display">
+            <div class="player player1">
+                <div class="player-icon" style="background-color: #f1d3cb;">
+                    <img class="person" src="../images/person1.svg" alt="player 1 icon">
+                    <p class="logo-label" style="color:#d33434"><strong>Player 1</strong></p>
+                </div>
+                <div class="location-data">
+                    <p class="current-location">Current Location:</p>
+                    <p class="previous-location">Previous Location:</p>
+                    <p class="distance">Total Distance Travelled:</p>
+                    <button class="travel-button1">Travel</button>
+                </div>
+            </div>
+            <div class="player player2">
+                <div class="player-icon" style="background-color: rgb(203, 205, 241);">
+                    <img class="person" src="../images/person2.svg" alt="player 2 icon">
+                    <p class="logo-label" style="color:#242699"><strong>Player 2</strong></p>
+                </div>
+                <div class="location-data">
+                    <p class="current-location">Current Location:</p>
+                    <p class="previous-location">Previous Location:</p>
+                    <p class="distance">Total Distance Travelled:</p>
+                    <button class="travel-button2">Travel</button>
+                </div>
+            </div>
+            <div class="player player3">
+                <div class="player-icon" style="background-color: rgb(203, 241, 233);">
+                    <img class="person" src="../images/person3.svg" alt="player 3 icon">
+                    <p class="logo-label" style="color:#17837d"><strong>Player 3</strong></p>
+                </div>
+                <div class="location-data">
+                    <p class="current-location">Current Location:</p>
+                    <p class="previous-location">Previous Location:</p>
+                    <p class="distance">Total Distance Travelled:</p>
+                    <button class="travel-button3">Travel</button>
+                </div>
+            </div>
+        </div>
         <div class="world-map"></div>
     </div>
 </body>
