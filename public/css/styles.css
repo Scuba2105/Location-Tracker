@@ -113,6 +113,7 @@ body {
     justify-content: space-around;
     align-items: center;
     background-color: white;
+    visibility: hidden;
 }
 
 .form-title {
@@ -133,20 +134,28 @@ body {
     width: 120px;
     font-size: 15px;
     margin-bottom: 10px;
-    display: inline;
+    position: relative;
     margin: 0 15px;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .submit {
     color: white;
     background-color:#17837d;
     border: 1px solid black;
+    top: 32px;
+    left: -70px;
 }
 
 .cancel {
     color: white;
     background-color: #d33434;
     border: 1px solid black;
+    top: -32px;
+    left: 70px;
 }
 
