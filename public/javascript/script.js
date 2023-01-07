@@ -28,10 +28,10 @@ function generateDropdownValues(array) {
 
 // Generate an array for the selected property from the cities array of objects 
 function generateArray(citiesObjectArray, property) {
+    const invalidData = ['US', 'UM', 'N/A']
     return citiesObjectArray.reduce((acc, curr) => {
-        const currentContinent = curr[property];
-        if (!acc.includes(currentContinent)) {
-            acc.push(currentContinent);
+        if (!acc.includes(curr[property]) && !invalidData.includes(curr[property])) {
+            acc.push(curr[property]);
             return acc;
         }
         return acc;
@@ -96,6 +96,31 @@ function updateCities() {
     citiesDropdown.innerHTML = generateDropdownValues(citiesArray);
 };
       
+
+// Access SVG elements
+const map = document.querySelector(".map-image");
+
+// It's important to add an load event listener to the object,
+// as it will load the svg doc asynchronously
+map.addEventListener("load",function(){
+
+    // get the inner DOM of alpha.svg
+    const svgDoc = map.contentDocument;
+    // get the inner element by id
+    var usa = svgDoc.getElementById("usa");
+    // add behaviour
+    let clicked = false;
+
+    usa.addEventListener("click",function(){
+        clicked = !clicked;
+        if (clicked == true) {
+            this.style.fill = 'rgb(228, 186, 128)';
+        }
+        else {
+            this.style.fill = 'red';
+        }
+    }, false);
+}, false);
 
 
 

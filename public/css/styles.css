@@ -4,8 +4,8 @@ body {
 
 .layout {
     display: grid;
-    grid-template-columns: 1fr 1400px;
-    grid-template-rows: 1fr 700px;
+    grid-template-columns: 500px 1500px;
+    grid-template-rows: 1fr 850px;
     grid-template-areas: 
         "header header"
         "info map";
@@ -95,11 +95,20 @@ body {
 
 .world-map {
     grid-area: map;
-    background-image: url("../images/world-map..svg");
-    background-size: cover; 
     border-bottom: 1px solid black;
     border-right: 1px solid black;
+    z-index: 1;
 }
+
+.map-image {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
 
 .travel-form {
     height: 400px;
@@ -145,7 +154,7 @@ body {
 
 .submit {
     color: white;
-    background-color:#17837d;
+    background-color:#17834d;
     border: 1px solid black;
     top: 32px;
     left: -70px;
