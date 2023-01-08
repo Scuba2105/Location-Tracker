@@ -93,6 +93,7 @@ const subject = document.querySelector('.subject');
 const currentLocations = document.querySelectorAll('.current-location');
 const previousLocations = document.querySelectorAll('.previous-location');
 const counts = document.querySelectorAll('.count');
+const mapContainer = document.querySelector('.world-map');
 
 // Add event listeners to each travel button.
 travelButtons.forEach(travelButton => {
@@ -181,7 +182,8 @@ map.addEventListener("load",function(){
     // get the inner DOM of alpha.svg
     const svgDoc = map.contentDocument;
     // get the inner element by id
-    var usa = svgDoc.getElementById("usa");
+    const usa = svgDoc.getElementById("usa");
+    const brazil = svgDoc.getElementById("brazil");
     // add behaviour
     let clicked = false;
 
@@ -189,6 +191,17 @@ map.addEventListener("load",function(){
         clicked = !clicked;
         if (clicked == true) {
             this.style.fill = 'rgb(228, 186, 128)';
+            const boundingRect = this.getBoundingClientRect();
+            const x =  boundingRect.x;
+            const y = boundingRect.y;
+            const height = boundingRect.height;
+            const width = boundingRect.width;
+            const dot = document.createElement('div');
+            dot.classList.add('marker');
+            dot.style.position = 'absolute';
+            dot.style.top = `${164 + y}px`  
+            dot.style.left = `${500 + x}px`
+            mapContainer.append(dot);  
         }
         else {
             this.style.fill = 'red';
