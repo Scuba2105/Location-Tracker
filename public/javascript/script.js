@@ -184,10 +184,12 @@ map.addEventListener("load",function(){
     // get the inner element by id
     const usa = svgDoc.getElementById("usa");
     const brazil = svgDoc.getElementById("brazil");
+    const russia = svgDoc.getElementById("russia");
+
     // add behaviour
     let clicked = false;
 
-    usa.addEventListener("click",function(){
+    russia.addEventListener("click",function(){
         clicked = !clicked;
         if (clicked == true) {
             this.style.fill = 'rgb(228, 186, 128)';
@@ -196,11 +198,13 @@ map.addEventListener("load",function(){
             const y = boundingRect.y;
             const height = boundingRect.height;
             const width = boundingRect.width;
+            const centerX = x + width/2;
+            const centerY = y + height/2;
             const dot = document.createElement('div');
             dot.classList.add('marker');
             dot.style.position = 'absolute';
-            dot.style.top = `${164 + y}px`  
-            dot.style.left = `${500 + x}px`
+            dot.style.top = `${100 + centerY}px`  
+            dot.style.left = `${500 + centerX}px`
             mapContainer.append(dot);  
         }
         else {

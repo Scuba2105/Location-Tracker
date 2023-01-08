@@ -5,7 +5,7 @@ body {
 .layout {
     display: grid;
     grid-template-columns: 500px 1500px;
-    grid-template-rows: 1fr 850px;
+    grid-template-rows: 100px 850px;
     grid-template-areas: 
         "header header"
         "info map";
