@@ -1,3 +1,15 @@
+// Set the web socket
+const travelSocketUrl = 'ws://localhost:5050/'
+const socket = new WebSocket(travelSocketUrl);
+
+socket.onopen = () => {
+  socket.send('Here\'s some text that the server is urgently awaiting!'); 
+}
+
+socket.onmessage = e => {
+  console.log('Message from server:', e.data)
+}
+
 // initialise variable to store capital cities data.
 let capitalCities; 
 
@@ -69,11 +81,15 @@ travelButtons.forEach(travelButton => {
     travelButton.addEventListener('click', showTravelForm);
 });
 
+// Cancel button event listener
+cancel.addEventListener('click', hideTravelForm);
+
+// Submit button event listener
+submit.addEventListener('click', submitTravelForm);
+
 // Event listener for continents dropdown
 continentsDropdown.addEventListener('change', updateCities);
 
-// Cancel button event listener
-cancel.addEventListener('click', hideTravelForm);
 
 
 // Define the event listener functions
@@ -86,8 +102,17 @@ function showTravelForm() {
 };
 
 function hideTravelForm() {
+    subject.textContent = '';
     travelForm.style.visibility = 'hidden';
 };
+
+function submitTravelForm() {
+    const id = subject.textContent;
+    const locationValue = citiesDropdown.value;
+    const newLocation = locationValue[0].toUpperCase() + locationValue.substring(1);
+    const dataObject = {'id': id, 'New Location': newLocation};
+    console.log(dataObject);
+}
 
 function updateCities() {
     const newValue = this.value;
