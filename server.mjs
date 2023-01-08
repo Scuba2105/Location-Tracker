@@ -34,10 +34,13 @@ app.get('/capitals', async (req, res) => {
 const wss = new WebSocketServer({port: 5050});
 
 wss.on('connection', function connection(ws) {
-  ws.on('message', (event) => {
-    if (event.data != undefined) {
-      const data = JSON.parse(event.data);
-      console.log(data);
+  ws.on('message', function message(data) {
+    if (data[0] == '{') {
+      const parsedData = JSON.parse(data);
+      console.log(parsedData);
+    }
+    else {
+      console.log(data.toString());
     }
   });
   ws.send('something from server');

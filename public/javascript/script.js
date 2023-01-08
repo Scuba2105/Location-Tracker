@@ -111,7 +111,7 @@ function submitTravelForm() {
     const locationValue = citiesDropdown.value;
     const newLocation = locationValue[0].toUpperCase() + locationValue.substring(1);
     const dataObject = {'id': id, 'New Location': newLocation};
-    console.log(dataObject);
+    socket.send(JSON.stringify(dataObject));
 }
 
 function updateCities() {
