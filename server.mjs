@@ -35,15 +35,21 @@ const wss = new WebSocketServer({port: 5050});
 
 wss.on('connection', function connection(ws) {
   ws.on('message', function message(data) {
-    if (data[0] == '{') {
-      const parsedData = JSON.parse(data);
-      console.log(parsedData);
+    const text = data.toString();
+    if (text[0] == '{') {
+      wss.clients.forEach((client) => {
+        if (client.readyState === 1) {
+          const dataObject = JSON.parse(text);
+          console.log(dataObject);
+          client.send(JSON.stringify(dataObject));
+        }
+      });
     }
     else {
-      console.log(data.toString());
+      return console.log(data.toString());
     }
   });
-  ws.send('something from server');
+  console.log('Successfully connected');
 });
 
 // Start server listening on port 5000

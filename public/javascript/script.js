@@ -7,7 +7,8 @@ socket.onopen = () => {
 }
 
 socket.onmessage = e => {
-  console.log('Message from server:', e.data)
+  const returnedObject = JSON.parse(e.data);
+  console.log(returnedObject);
 }
 
 // initialise variable to store capital cities data.
@@ -74,7 +75,10 @@ const continentsDropdown = document.querySelector('.continent-dropdown');
 const citiesDropdown = document.querySelector('.city-dropdown');
 const cancel = document.querySelector('.cancel');
 const submit = document.querySelector('.submit');
-const subject = document.querySelector('.subject')
+const subject = document.querySelector('.subject');
+const currentLocations = document.querySelectorAll('.current-location');
+const previousLocations = document.querySelectorAll('.previous-location');
+const counts = document.querySelectorAll('.count');
 
 // Add event listeners to each travel button.
 travelButtons.forEach(travelButton => {
@@ -107,10 +111,28 @@ function hideTravelForm() {
 };
 
 function submitTravelForm() {
+
+    // Determine ID from the form
     const id = subject.textContent;
+
+    // Index (0-2) determines what players info panel is to be changed
+    const index = Number(id.split(' ')[1]) - 1;
+    
+    // Calculate the old location based on current location before travel
+    const newLocationText = currentLocations[index].textContent;
+    const oldLocation = newLocationText.split(': ')[1];
+
+    // Calculate the new location value
     const locationValue = citiesDropdown.value;
     const newLocation = locationValue[0].toUpperCase() + locationValue.substring(1);
-    const dataObject = {'id': id, 'New Location': newLocation};
+    
+    // Calculate the count 
+    const oldCountText = counts[index].textContent;
+    const newCountText = oldCountText.split(': ')[1];
+    const newCount = Number(newCountText) + 1;
+
+    // Calculate the count
+    const dataObject = {'index': index, 'New Location': newLocation, 'Old Location': oldLocation, 'Travel Count': newCount}; 
     socket.send(JSON.stringify(dataObject));
 }
 
