@@ -2,13 +2,27 @@
 const travelSocketUrl = 'ws://localhost:5050/'
 const socket = new WebSocket(travelSocketUrl);
 
+// Web socket listener on open connection
 socket.onopen = () => {
   socket.send('Here\'s some text that the server is urgently awaiting!'); 
 }
 
+// Web socket listener on message received from server
 socket.onmessage = e => {
-  const returnedObject = JSON.parse(e.data);
-  console.log(returnedObject);
+
+    // Parse the returned data
+    const returnedObject = JSON.parse(e.data);
+    
+    // Extract the data from the returned data object
+    const index = returnedObject.index;
+    const currentLocation = returnedObject["New Location"];
+    const previousLocation = returnedObject["Old Location"];
+    const newCount = returnedObject["Travel Count"];
+    
+    // Set the new values in the info display
+    currentLocations[index].textContent = `Current Location: ${currentLocation}`;
+    previousLocations[index].textContent = `Previous Location: ${previousLocation}`;
+    counts[index].textContent = `No. of Times Travelled: ${newCount}`;
 }
 
 // initialise variable to store capital cities data.
@@ -124,8 +138,13 @@ function submitTravelForm() {
 
     // Calculate the new location value
     const locationValue = citiesDropdown.value;
-    const newLocation = locationValue[0].toUpperCase() + locationValue.substring(1);
     
+    // Capitalise first letters
+    const stringArray = locationValue.split(' ');
+    const newLocation = stringArray.map(word => {
+        return word[0].toUpperCase() + word.substring(1);
+    }).join(' ');
+        
     // Calculate the count 
     const oldCountText = counts[index].textContent;
     const newCountText = oldCountText.split(': ')[1];
@@ -134,6 +153,10 @@ function submitTravelForm() {
     // Calculate the count
     const dataObject = {'index': index, 'New Location': newLocation, 'Old Location': oldLocation, 'Travel Count': newCount}; 
     socket.send(JSON.stringify(dataObject));
+
+    // Close the form
+    subject.textContent = '';
+    travelForm.style.visibility = 'hidden';
 }
 
 function updateCities() {
