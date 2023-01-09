@@ -20,9 +20,10 @@
                     <p class="logo-label" style="color:#d33434"><strong>Player 1</strong></p>
                 </div>
                 <div class="location-data">
-                    <p class="current-location">Current Location: N/A</p>
-                    <p class="previous-location">Previous Location: N/A</p>
-                    <p class="count">No. of Times Travelled: 0</p>
+                    <p class="continent-location"><strong>Current Continent:</strong> N/A</p>
+                    <p class="country-location"><strong>Current Country:</strong> N/A</p>
+                    <p class="current-location"><strong>Current Location:</strong> N/A</p>
+                    <p class="count"><strong>No. of Times Travelled:</strong> 0</p>
                     <button class="travel-button travel-button1">Travel</button>
                 </div>
             </div>
@@ -32,9 +33,10 @@
                     <p class="logo-label" style="color:#242699"><strong>Player 2</strong></p>
                 </div>
                 <div class="location-data">
-                    <p class="current-location">Current Location: N/A</p>
-                    <p class="previous-location">Previous Location: N/A</p>
-                    <p class="count">No. of Times Travelled: 0</p>
+                    <p class="continent-location"><strong>Current Continent:</strong> N/A</p>
+                    <p class="country-location"><strong>Current Country:</strong> N/A</p>
+                    <p class="current-location"><strong>Current Location:</strong> N/A</p>
+                    <p class="count"><strong>No. of Times Travelled:</strong> 0</p>
                     <button class="travel-button travel-button2">Travel</button>
                 </div>
             </div>
@@ -44,10 +46,11 @@
                     <p class="logo-label" style="color:#17837d"><strong>Player 3</strong></p>
                 </div>
                 <div class="location-data">
-                    <p class="current-location">Current Location: N/A</p>
-                    <p class="previous-location">Previous Location: N/A</p>
-                    <p class="count">No. of Times Travelled: 0</p>
-                    <button class="travel-button travel-button3">Travel</button>
+                    <p class="continent-location"><strong>Current Continent:</strong> N/A</p>
+                    <p class="country-location"><strong>Current Country:</strong> N/A</p>
+                    <p class="current-location"><strong>Current Location:</strong> N/A</p>
+                    <p class="count"><strong>No. of Times Travelled:</strong> 0</p>
+                    <button class="travel-button travel-button2">Travel</button>
                 </div>
             </div>
         </div>
@@ -58,12 +61,14 @@
     <form class="travel-form">
         <label class="form-title">Where Would You Like To Travel?</label>
         <label name="id" class="subject"></label>
-        <label for="continents" class="continent-label">Select Continent:</label>   
+        <label for="continents" class="continent-label"><strong>Select Continent:</strong></label>   
         <select name="continents" class="continent-dropdown">
         </select>
-        <label for="cities" class="city-label">Select City:</label>
-        <select name="cities" class="city-dropdown">
+        <label for="countries" class="country-label"><strong>Select Countries:</strong></label>   
+        <select name="countries" class="country-dropdown">
         </select>
+        <label class="city-heading"><strong>Capital City:</strong></label>
+        <label name="cities" class="city-label"></label>        
         <div class="submit">Submit</div>
         <div class="cancel">Cancel</div>
     </form>

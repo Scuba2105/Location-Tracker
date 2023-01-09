@@ -33,7 +33,7 @@ body {
 }
 
 .player {
-    height: 175px;
+    height: 225px;
     width: 350px;
     border: 1px solid black;
     background-color: white;
@@ -129,18 +129,21 @@ body {
 .form-title {
     font-size: 18px;
     font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 15px;
 }
 
 .subject {
     font-size: 16px;
     font-weight: bold;
+    margin-bottom: 15px;
 }
 
-.continent-dropdown, .city-dropdown {
+.continent-dropdown, .city-dropdown, .country-dropdown {
     height: 25px;
     width: 150px;
     font-size: 15px;
-    transform: translateY(-20px);
+    transform: translateY(-10px);
 }
 
 .submit, .cancel {
@@ -161,7 +164,7 @@ body {
     color: white;
     background-color:#17834d;
     border: 1px solid black;
-    top: 32px;
+    top: 26px;
     left: -70px;
 }
 
@@ -169,7 +172,7 @@ body {
     color: white;
     background-color: #d33434;
     border: 1px solid black;
-    top: -32px;
+    top: -26px;
     left: 70px;
 }
 
