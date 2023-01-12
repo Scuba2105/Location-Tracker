@@ -55,35 +55,29 @@ socket.onmessage = e => {
 
     const currentSvgElement = svgDoc.querySelector(`.${currentSvgElementID}`);
     const previousSvgElement= newCount == 1 ? undefined : svgDoc.querySelector(`.${previousSvgElementID}`);
-    const playerAnimation = index == 0 ? 'blinkPlayer1' : index == 1 ? 'blinkPlayer2' : 'blinkPlayer3';
     const playerColor = index == 0 ? '#d33434' : index == 1 ? '#242699' : '#17837d';
-    // const currentInitialColor = currentSvgElement.getAttribute('style').split(': ')[1]; 
-    // const previousInitialColor = currentSvgElement.getAttribute('style').split(': ')[1];
+    const currentInitialColor = currentSvgElement.getAttribute('style').split(': ')[1]; 
+    const previousInitialColor = currentSvgElement.getAttribute('style').split(': ')[1];
 
-    const currentState = true;
-    const previousState = false;
-    
         // Clear the previous svg highlighting
         if (previousSvgElement != undefined) {
-            previousSvgElement.classList.remove(`${playerAnimation}`);
+            const animateTag = previousSvgElement.getElementsByTagName("animate");
+            console.log(animateTag);
+            previousSvgElement.removeChild(animateTag);
         }
         
         // Set the current svg highlighting 
         if (currentSvgElement != undefined) {
-           currentSvgElement.setAttribute('style',`fill: ${playerColor};`);
-           console.log(currentSvgElement);
-
-            // /** Create the DOM object for shape animation, and set its attributes. */
-            // const animateElement = document.createElementNS(svgDoc, "animate");
-            // animateElement.setAttribute("attributeType", "XML");
-            // animateElement.setAttribute("attributeName", "fill");
-            // animateElement.setAttribute("values", "#FF6347;#FF6347;#FF6347;#FFA07A;#FFA07A;#FFA07A;#FFA07A"); //`${playerColor};${currentInitialColor}`);
-            // animateElement.setAttribute("dur", "2s");
-            // animateElement.setAttribute("repeatCount", "indefinite");
-            // /** Append the animation element to the shape element. */
-            // svgElements[index] = animateElement;
-            // currentSvgElement.appendChild(animateElement);
-            // console.log(currentSvgElement);
+            /* Create the DOM object for shape animation, and set its attributes. */
+            const animateElement = document.createElementNS('http://www.w3.org/2000/svg', "animate");
+            animateElement.setAttribute("attributeType", "XML");
+            animateElement.setAttribute("attributeName", "fill");
+            animateElement.setAttribute("values", "#FF6347;#FF6347;#FF6347;#FFA07A;#FFA07A;#FFA07A;#FFA07A"); //`${playerColor};${currentInitialColor}`);
+            animateElement.setAttribute("dur", "2s");
+            animateElement.setAttribute("repeatCount", "indefinite");
+            /** Append the animation element to the shape element. */
+            currentSvgElement.appendChild(animateElement);
+            console.log(currentSvgElement);
         }
         else {
              alert('The selected county\'s element could not be found in the svg');
@@ -108,24 +102,6 @@ socket.onmessage = e => {
         alert('The svg cannot be updated as it has not loaded');
     }
 }
-
-function toggleLocation(state, element, playerColor, initialColor) {
-    if (state == true) {
-        svgElement = setInterval((element, playerColor, initialColor) => {
-            console.log(element, playerColor, initialColor);
-            element.style.fill = playerColor;
-            console.log('flashing player colour')
-            setTimeout(() => {
-                element.style.fill = initialColor;
-                console.log('pausing at default colour');
-            } ,2000);
-        }, 4000);
-    }
-    else if (state == false) {
-        clearInterval(svgElement);
-        element.style.fill = initialColor;
-    };
-};
 
 // initialise variable to store capital cities data.
 let capitalCities; 
