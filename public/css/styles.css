@@ -60,7 +60,7 @@ body {
    display: flex;
    flex-direction: column;
    justify-content: space-around;
-   padding-left: 5px; 
+   padding-left: 10px; 
 }
 
 .travel-button1 {
@@ -183,4 +183,38 @@ body {
     background-color: black;
     z-index: 5;
 }
+
+.blinkPlayer1 {
+    animation: blinker 2s linear infinite;
+  }
+
+  @keyframes blinker {
+    50% {
+      fill:#d33434 !important;
+    }
+  }
+
+  .blinkPlayer2 {
+    animation: blinker2 2s linear infinite;
+  }
+
+  @keyframes blinker2 {
+    50% {
+      fill:#242699 !important;
+    }
+  }
+
+  .blinkPlayer3 {
+    animation: blinker3 2s linear infinite;
+    fill: #17837d;
+  }
+
+  @keyframes blinker3 {
+    50% {
+      fill:#17837d !important;
+    }
+  }
+  
+
+
 

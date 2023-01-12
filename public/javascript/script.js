@@ -3,7 +3,7 @@ const travelButtons = document.querySelectorAll('.travel-button');
 const travelForm = document.querySelector('.travel-form');
 const continentsDropdown = document.querySelector('.continent-dropdown');
 const countriesDropdown = document.querySelector('.country-dropdown');
-const cityLabel = document.querySelector('.city-label')
+const cityLabel = document.querySelector('.city-label');
 const cancel = document.querySelector('.cancel');
 const submit = document.querySelector('.submit');
 const subject = document.querySelector('.subject');
@@ -12,6 +12,8 @@ const currentContinents = document.querySelectorAll('.continent-location');
 const currentCountries = document.querySelectorAll('.country-location')
 const counts = document.querySelectorAll('.count');
 const mapContainer = document.querySelector('.world-map');
+let svgLoaded = false;
+let svgElements = [];
 
 // Set the web socket
 const travelSocketUrl = 'ws://localhost:5050/'
@@ -33,13 +35,97 @@ socket.onmessage = e => {
     const currentLocation = returnedObject["New Location"];
     const currentContinent = returnedObject["New Continent"];
     const currentCountry = returnedObject["New Country"];
+    const previousCountry = returnedObject["Previous Country"];
     const newCount = returnedObject["Travel Count"];
     
     // Set the new values in the info display
     currentLocations[index].innerHTML = `<strong>Current Location:</strong> ${currentLocation}`;
     currentContinents[index].innerHTML = `<strong>Current Continent:</strong> ${currentContinent}`;
+    currentCountries[index].innerHTML = `<strong>Current Country:</strong> ${currentCountry}`;
     counts[index].innerHTML = `<strong>No. of Times Travelled:</strong> ${newCount}`;
+
+    if (svgLoaded) {
+    
+    // Define the SVG document
+    const svgDoc = map.contentDocument;
+        
+    // Lower case the country name to select the elements of the svg document.
+    const currentSvgElementID = lowerCase(currentCountry);
+    const previousSvgElementID = lowerCase(previousCountry);
+
+    const currentSvgElement = svgDoc.querySelector(`.${currentSvgElementID}`);
+    const previousSvgElement= newCount == 1 ? undefined : svgDoc.querySelector(`.${previousSvgElementID}`);
+    const playerAnimation = index == 0 ? 'blinkPlayer1' : index == 1 ? 'blinkPlayer2' : 'blinkPlayer3';
+    const playerColor = index == 0 ? '#d33434' : index == 1 ? '#242699' : '#17837d';
+    // const currentInitialColor = currentSvgElement.getAttribute('style').split(': ')[1]; 
+    // const previousInitialColor = currentSvgElement.getAttribute('style').split(': ')[1];
+
+    const currentState = true;
+    const previousState = false;
+    
+        // Clear the previous svg highlighting
+        if (previousSvgElement != undefined) {
+            previousSvgElement.classList.remove(`${playerAnimation}`);
+        }
+        
+        // Set the current svg highlighting 
+        if (currentSvgElement != undefined) {
+           currentSvgElement.setAttribute('style',`fill: ${playerColor};`);
+           console.log(currentSvgElement);
+
+            // /** Create the DOM object for shape animation, and set its attributes. */
+            // const animateElement = document.createElementNS(svgDoc, "animate");
+            // animateElement.setAttribute("attributeType", "XML");
+            // animateElement.setAttribute("attributeName", "fill");
+            // animateElement.setAttribute("values", "#FF6347;#FF6347;#FF6347;#FFA07A;#FFA07A;#FFA07A;#FFA07A"); //`${playerColor};${currentInitialColor}`);
+            // animateElement.setAttribute("dur", "2s");
+            // animateElement.setAttribute("repeatCount", "indefinite");
+            // /** Append the animation element to the shape element. */
+            // svgElements[index] = animateElement;
+            // currentSvgElement.appendChild(animateElement);
+            // console.log(currentSvgElement);
+        }
+        else {
+             alert('The selected county\'s element could not be found in the svg');
+        }
+    
+            // const boundingRect = this.getBoundingClientRect();
+            // const x =  boundingRect.x;
+            // const y = boundingRect.y;
+            // const height = boundingRect.height;
+            // const width = boundingRect.width;
+            // const centerX = x + width/2;
+            // const centerY = y + height/2;
+            // const dot = document.createElement('div');
+            // dot.classList.add('marker');
+            // dot.style.position = 'absolute';
+            // dot.style.top = `${100 + centerY}px`  
+            // dot.style.left = `${500 + centerX}px`
+            // mapContainer.append(dot);
+
+    }
+    else {
+        alert('The svg cannot be updated as it has not loaded');
+    }
 }
+
+function toggleLocation(state, element, playerColor, initialColor) {
+    if (state == true) {
+        svgElement = setInterval((element, playerColor, initialColor) => {
+            console.log(element, playerColor, initialColor);
+            element.style.fill = playerColor;
+            console.log('flashing player colour')
+            setTimeout(() => {
+                element.style.fill = initialColor;
+                console.log('pausing at default colour');
+            } ,2000);
+        }, 4000);
+    }
+    else if (state == false) {
+        clearInterval(svgElement);
+        element.style.fill = initialColor;
+    };
+};
 
 // initialise variable to store capital cities data.
 let capitalCities; 
@@ -56,14 +142,27 @@ async function getJSON() {
 };
 
 // Capitalise first letters of a word
-function capitaliseFirstLetters(word) {
-    const stringArray = word.split(' ');
+function capitaliseFirstLetters(words) {
+    const stringArray = words.split(' ');
     return stringArray.map(word => {
         if (word == 'and') {
             return word;
         }
         return word[0].toUpperCase() + word.substring(1);
     }).join(' ');
+};
+
+// capitalise all Letters in the country name
+function capitaliseAllLetters(word) {
+    const capitalisedWord = word.split('').map((letter) => {
+        return letter.toUpperCase();
+    }).join('');
+    return capitalisedWord;
+}
+
+// lower case first letters of a word
+function lowerCase(word) {
+    return word.toLowerCase();
 };
 
 // Filter the cities array of objects 
@@ -158,10 +257,14 @@ function submitTravelForm() {
     const newContinent = capitaliseFirstLetters(continentsDropdown.value); 
 
     // Calculate the new location value
-    const newCountry = capitaliseFirstLetters(countriesDropdown.value);
+    const newCountry = countriesDropdown.value == "usa" ? capitaliseAllLetters(countriesDropdown.value) : capitaliseFirstLetters(countriesDropdown.value);
     
     // Calculate the new capital city
     const capitalCity = capitaliseFirstLetters(cityLabel.textContent);
+
+    // Calculate the previous country as the current country before change
+    const previousCountryData = currentCountries[index].textContent;
+    const previousCountry = previousCountryData.split(': ')[1];  
 
     // Calculate the count 
     const oldCountText = counts[index].textContent;
@@ -169,7 +272,7 @@ function submitTravelForm() {
     const newCount = Number(newCountText) + 1;
 
     // Calculate the count
-    const dataObject = {'index': index, 'New Location': capitalCity, 'New Continent': newContinent, 'New Country': newCountry, 'Travel Count': newCount}; 
+    const dataObject = {'index': index, 'New Location': capitalCity, 'New Continent': newContinent, 'New Country': newCountry, 'Previous Country': previousCountry,'Travel Count': newCount}; 
     socket.send(JSON.stringify(dataObject));
 
     // Close the form
@@ -194,9 +297,9 @@ function updateCountries() {
   
 function updateCities() {
     const newValue = this.value;
-    const newCountry = capitaliseFirstLetters(newValue);
+    const newCountry = newValue == 'usa' ? capitaliseAllLetters(newValue) : capitaliseFirstLetters(newValue);
     const filteredCountry = filterCitiesObject('CountryName', newCountry)[0];
-    const capitalCity = filteredCountry.CapitalName;    
+    const capitalCity = filteredCountry.CapitalName;   
     cityLabel.innerHTML = capitalCity;
 };
 
@@ -205,41 +308,11 @@ const map = document.querySelector(".map-image");
 
 // It's important to add an load event listener to the object,
 // as it will load the svg doc asynchronously.
-map.addEventListener("load",function(){
+map.addEventListener("load",function() {
+    svgLoaded = true;
+});
 
-    // get the inner DOM of alpha.svg
-    const svgDoc = map.contentDocument;
-    // get the inner element by id
-    const usa = svgDoc.getElementById("usa");
-    const brazil = svgDoc.getElementById("brazil");
-    const russia = svgDoc.getElementById("russia");
-
-    // add behaviour
-    let clicked = false;
-
-    russia.addEventListener("click",function(){
-        clicked = !clicked;
-        if (clicked == true) {
-            this.style.fill = 'red';
-            const boundingRect = this.getBoundingClientRect();
-            const x =  boundingRect.x;
-            const y = boundingRect.y;
-            const height = boundingRect.height;
-            const width = boundingRect.width;
-            const centerX = x + width/2;
-            const centerY = y + height/2;
-            const dot = document.createElement('div');
-            dot.classList.add('marker');
-            dot.style.position = 'absolute';
-            dot.style.top = `${100 + centerY}px`  
-            dot.style.left = `${500 + centerX}px`
-            mapContainer.append(dot);  
-        }
-        else {
-            this.style.fill = 'rgb(228, 186, 128)';
-        }
-    }, false);
-}, false);
+    
 
 
 
