@@ -276,4 +276,5 @@
   <path id="greece" d="M506.71,217.6l-0.11,1.33l4.63,2.33l2.21,0.85l-1.16,1.22l-2.58,0.26l-0.37,1.17l0.89,2.01l2.89,1.54l1.26,0.11l0.16-3.45l1.89-2.28l-5.16-6.1l0.68-2.07l1.21-0.05l1.84,1.48l1.16-0.58l0.37-2.07l5.42,0.05l0.21-3.18l-2.26,1.59l-6.63-0.16l-4.31,2.23L506.71,217.6L506.71,217.6z" style="fill: rgb(234, 146, 146);"/>
   <path id="thrace" d="M523.02,209.7l-0.16,3.55l3.1-0.95l1.42-0.95l-0.42-1.54l-1.47-1.17L523.02,209.7L523.02,209.7z" style="fill: rgb(128, 228, 158);"/>
   <text style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 24.6px;" x="164.866" y="204.328">USA</text>
+  <text xmlns="http://www.w3.org/2000/svg" id="country0" style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 24.6px;" x="727.0037040710449px" y="348.17456436157227px">Algeria</text>
 </svg>

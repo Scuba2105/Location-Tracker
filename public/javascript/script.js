@@ -48,6 +48,7 @@ socket.onmessage = e => {
     
     // Define the SVG document
     const svgDoc = map.contentDocument;
+    const svgDocElement = svgDoc.documentElement;
         
     // Lower case the country name to select the elements of the svg document.
     const currentSvgElementID = lowerCase(currentCountry);
@@ -57,13 +58,15 @@ socket.onmessage = e => {
     const previousSvgElement= newCount == 1 ? undefined : svgDoc.querySelector(`.${previousSvgElementID}`);
     const playerColor = index == 0 ? '#d33434' : index == 1 ? '#242699' : '#17837d';
     const currentInitialColor = currentSvgElement.getAttribute('style').split(': ')[1]; 
-    const previousInitialColor = currentSvgElement.getAttribute('style').split(': ')[1];
+    //const previousInitialColor = currentSvgElement.getAttribute('style').split(': ')[1];
 
         // Clear the previous svg highlighting
         if (previousSvgElement != undefined) {
-            const animateTag = previousSvgElement.getElementsByTagName("animate");
-            console.log(animateTag);
-            previousSvgElement.removeChild(animateTag);
+            // Get first element of array
+            const animateTag = previousSvgElement.getElementsByTagName("animate")[0];
+            const textTag = svgDoc.getElementById(`country${index}`);
+            animateTag.remove();
+            textTag.remove(); 
         }
         
         // Set the current svg highlighting 
@@ -72,31 +75,34 @@ socket.onmessage = e => {
             const animateElement = document.createElementNS('http://www.w3.org/2000/svg', "animate");
             animateElement.setAttribute("attributeType", "XML");
             animateElement.setAttribute("attributeName", "fill");
-            animateElement.setAttribute("values", "#FF6347;#FF6347;#FF6347;#FFA07A;#FFA07A;#FFA07A;#FFA07A"); //`${playerColor};${currentInitialColor}`);
+            animateElement.setAttribute("values", `${playerColor};${currentInitialColor}`);
             animateElement.setAttribute("dur", "2s");
             animateElement.setAttribute("repeatCount", "indefinite");
             /** Append the animation element to the shape element. */
             currentSvgElement.appendChild(animateElement);
-            console.log(currentSvgElement);
+
+            // Determine the approximate location for the country label
+            const boundingRect = currentSvgElement.getBBox();
+            const x =  boundingRect.x - 35;
+            const y = boundingRect.y + 2;
+            const height = boundingRect.height;
+            const width = boundingRect.width;
+            const centerX = x + width/2;
+            const centerY = y + height/2;
+
+            // Insert a text element
+            const textElement = document.createElementNS('http://www.w3.org/2000/svg', "text");
+            textElement.setAttribute("id", `country${index}`);
+            textElement.setAttribute("style", "white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 18px;");
+            textElement.setAttribute("x", `${centerX}px`);
+            textElement.setAttribute("y", `${centerY}px`);
+            textElement.textContent = currentCountry;
+            svgDocElement.appendChild(textElement); 
+            console.log(svgDocElement);          
         }
         else {
              alert('The selected county\'s element could not be found in the svg');
         }
-    
-            // const boundingRect = this.getBoundingClientRect();
-            // const x =  boundingRect.x;
-            // const y = boundingRect.y;
-            // const height = boundingRect.height;
-            // const width = boundingRect.width;
-            // const centerX = x + width/2;
-            // const centerY = y + height/2;
-            // const dot = document.createElement('div');
-            // dot.classList.add('marker');
-            // dot.style.position = 'absolute';
-            // dot.style.top = `${100 + centerY}px`  
-            // dot.style.left = `${500 + centerX}px`
-            // mapContainer.append(dot);
-
     }
     else {
         alert('The svg cannot be updated as it has not loaded');
