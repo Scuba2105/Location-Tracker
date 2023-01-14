@@ -16,7 +16,9 @@ let svgLoaded = false;
 let svgElements = [];
 
 // Set the web socket
-const travelSocketUrl = 'ws://localhost:5050/'
+const rootPath = window.location.href;
+const travelSocketUrl = `ws://${rootPath.split('//')[1]}`;
+console.log(travelSocketUrl);
 const socket = new WebSocket(travelSocketUrl);
 
 // Web socket listener on open connection
