@@ -2,6 +2,7 @@ import {WebSocketServer} from 'ws';
 import {createServer} from 'http';
 import {app} from './http-server.mjs';
 
+// Create a server for the application for both http and ws
 const server = createServer();
 
 // Define the port
