@@ -17,7 +17,9 @@ let svgElements = [];
 
 // Set the web socket
 const rootPath = window.location.href;
-const travelSocketUrl = `wss://${rootPath.split('//')[1]}`;
+const httpPrefix = rootPath.split('//')[0];
+const wsPrefix = httpPrefix == 'https' ? 'wss' : 'ws'; 
+const travelSocketUrl = `${wsPrefix}://${rootPath.split('//')[1]}`;
 console.log(travelSocketUrl);
 const socket = new WebSocket(travelSocketUrl);
 

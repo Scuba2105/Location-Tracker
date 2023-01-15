@@ -21,7 +21,6 @@ wss.on('connection', function connection(ws) {
         wss.clients.forEach((client) => {
           if (client.readyState === 1) {
             const dataObject = JSON.parse(text);
-            console.log(dataObject);
             client.send(JSON.stringify(dataObject));
           }
         });
