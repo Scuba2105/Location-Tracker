@@ -32,6 +32,7 @@ wss.on('connection', function connectionReply(ws) {
         // Read the old JSON data and insert the new data
         const newData = JSON.parse(text);
         let locationData = JSON.parse(getJsonLocationData(rootDirectory));
+        console.log(locationData);
         const newEntry = {"Current Continent": newData["New Continent"], "Current Country": newData["New Country"], "Current Location": newData["New Location"], "No. of Times Travelled": newData["Travel Count"]};
         const entryIndex = newData["index"];
         locationData[entryIndex] = newEntry;
