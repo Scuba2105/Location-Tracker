@@ -1,3 +1,20 @@
-[{"Current Continent": "N/A", "Current Country": "N/A", "Current Location": "N/A", "No. of Times Travelled": 0}, 
- {"Current Continent": "N/A", "Current Country": "N/A", "Current Location": "N/A", "No. of Times Travelled": 0},
- {"Current Continent": "N/A", "Current Country": "N/A", "Current Location": "N/A", "No. of Times Travelled": 0}]
+[
+  {
+    "Current Continent": "Africa",
+    "Current Country": "Algeria",
+    "Current Location": "Algiers",
+    "No. of Times Travelled": 1
+  },
+  {
+    "Current Continent": "Australia",
+    "Current Country": "Australia",
+    "Current Location": "Canberra",
+    "No. of Times Travelled": 1
+  },
+  {
+    "Current Continent": "South America",
+    "Current Country": "Argentina",
+    "Current Location": "Buenos Aires",
+    "No. of Times Travelled": 1
+  }
+]

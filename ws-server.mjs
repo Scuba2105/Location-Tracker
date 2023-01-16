@@ -19,10 +19,10 @@ server.on('request', app);
 // Define __dirname
 const rootDirectory = path.dirname('.');
 
-wss.on('connection', function connection(ws) {
-    ws.on('message', function message(data) {
+wss.on('connection', function connectionReply(ws) {
+    ws.on('message', function messageReply(data) {
       const text = data.toString();
-      if (text[0] == '{') {
+      if (text[0] == '{' || text[0] == '[') {
         wss.clients.forEach((client) => {
           if (client.readyState === 1) {
             const dataObject = JSON.parse(text);
@@ -31,11 +31,12 @@ wss.on('connection', function connection(ws) {
         });
         // Read the old JSON data and insert the new data
         const newData = JSON.parse(text);
-        let oldData = JSON.parse(getJsonLocationData(rootDirectory));
+        let locationData = JSON.parse(getJsonLocationData(rootDirectory));
         const newEntry = {"Current Continent": newData["New Continent"], "Current Country": newData["New Country"], "Current Location": newData["New Location"], "No. of Times Travelled": newData["Travel Count"]};
         const entryIndex = newData["index"];
-        oldData[entryIndex] = newEntry;
-        console.log(oldData);
+        locationData[entryIndex] = newEntry;
+        const fileContent = JSON.stringify(locationData, null, 2); 
+        writeJsonLocationData(fileContent, rootDirectory);
       }
       else {
         return console.log(text);

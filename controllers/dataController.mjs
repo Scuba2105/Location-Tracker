@@ -20,6 +20,7 @@ export function getJsonLocationData(rootPath) {
 export function writeJsonLocationData(locationData, rootPath) {
     const dataPath = path.join(rootPath, 'data', 'person-data.json');
     fs.writeFileSync(dataPath, locationData);
+    console.log('file written successfully');
 }
 
     
