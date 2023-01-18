@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
-import { getJsonCountries, getJsonLocationData } from './controllers/dataController.mjs';
-
+import { getJsonCountries } from './controllers/dataController.mjs';
+import { readJSONLocationData } from './model/models.mjs';
 
 // Create app
 export const app = express();
@@ -15,7 +15,7 @@ app.use(express.static('public'));
 // Serve index.html when root page accessed
 app.get('/', (req, res) => {
   try {
-    const locationData = getJsonLocationData(rootDirectory);
+    //const locationData = readJSONLocationData(rootDirectory);
     res.sendFile("public/html/index.html", { root: rootDirectory });
   } catch (error) {
     
