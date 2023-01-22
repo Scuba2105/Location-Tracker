@@ -1,0 +1,68 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        meta(http-equiv='X-UA-Compatible' content='IE=edge')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title Northern Circulation Route List Summary
+        link(rel='stylesheet' href='./styles.css') 
+    body
+        div(class="layout")
+            div(class="header-bar")
+                h1(class="title") Location Tracker
+            div(class="info-display")
+                div(class="player player1")
+                    div(class="player-icon" style="background-color: #f1d3cb;")
+                        img(class="person" src="../images/person1.svg" alt="player 1 icon")
+                        p(class="logo-label" style="color:#d33434") <strong>Person 1</strong>
+                    div(class="location-data")
+                        p(class="continent-location") <strong>Current Continent:</strong> N/A</p>
+                        p(class="country-location") <strong>Current Country:</strong> N/A</p>
+                        p(class="current-location")<strong>Current Location:</strong> N/A</p>
+                        p(class="count") <strong>No. of Times Travelled:</strong> 0</p>
+                        button(class="travel-button travel-button1") Travel
+
+
+
+
+
+
+
+        div(class='main-background')
+            div(class='header-region')
+                h1(class='title' style='background-color:' + BackgroundColor) #{Day} Route List Summary
+                p(class='date') <strong>Date:</strong> #{Date}
+                p(class='bulk-size') <strong>Bulk Size:</strong> #{BulkSize}
+                p(class='publication') <strong>Publication:</strong> #{PublicationCode}
+            div(class='data-region')
+                each route, i in RouteData
+                    table(class='tg')
+                        thead
+                            tr
+                                td(class='route' rowspan='3' style='background-color:' + BackgroundColor)= route.Route 
+                                td(class='label') Supply:
+                                td(class='value')= route.Supply 
+                            tr
+                                td(class='label') Bulk:
+                                td(class='value')= Math.floor(route.Supply/BulkSize)
+                            tr
+                                td(class='label') Odds:
+                                td(class='value')= route.Supply % BulkSize
+                table(class='tg')
+                        thead
+                            tr
+                                td(class='route' rowspan='3' style='background-color:' + BackgroundColor) TOTALS
+                                td(class='label') Supply:
+                                td(class='value')= TruckTotal
+                            tr
+                                td(class='label') Bulk:
+                                td(class='value')= Math.floor(TruckTotal/BulkSize)
+                            tr
+                                td(class='label') Odds:
+                                td(class='value')= TruckTotal % BulkSize
+                
+                            
+
+                
+
+                  
