@@ -28,6 +28,8 @@ socket.onopen = () => {
   socket.send('Here\'s some text that the server is urgently awaiting!'); 
 }
 
+// Testing the git ssh
+
 // Web socket listener on message received from server
 socket.onmessage = e => {
 
